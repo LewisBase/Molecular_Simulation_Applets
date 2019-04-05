@@ -2,17 +2,15 @@
 # -*- coding: UTF-8 -*-
 
 #用于绘制界面张力随颗粒物粒径变化规律曲线
+#作者：lewisbase
+#日期：2019.03.29
 
 
 import numpy as np
 import math
 from pylab import *
 
-
-
-
-PI=3.1415926
-NA=6.02
+NA=6.02e23
 
 
 k=[10.4852,9.21986,10.80252,12.12507,11.71712,11.84442,11.62607,11.89865,11.20948,10.10373,9.88793]
@@ -23,10 +21,10 @@ y=[]
 
 
 
-x=np.linspace(1,100,5000)
+x=np.linspace(1,10**4.2,5000)
 
 for i in range(11):
-    g=((k[i]*x+b[i])/NA)/(PI*(x/2)**2*0.1)
+    g=((k[i]*x+b[i])*1e6/NA)/(100)
     y.append(g)
 
 
@@ -35,16 +33,16 @@ for i in range(11):
 figure(figsize=(15,12),dpi=100)
 xlabel("D (nm)",fontsize=40)
 ylabel("$\Delta$$\gamma$ (mN/m)",fontsize=40)
-xlim(0,50)
-ylim(0,12)
-yticks(np.linspace(0,12,4,endpoint=True),fontsize=32)
-xticks(fontsize=32)
+xlim(0,10**4.2)
+ylim(0,3e-15)
+yticks(np.linspace(0,3e-15,4,endpoint=True),fontsize=32)
+xticks(np.linspace(1,10**4,5,endpoint=True),fontsize=32)
 
 for i in range(11):
     plot(x,y[i],label=name[i],linewidth=3,color=linecolor[i])
 
 
-legend(loc='upper right',fontsize=26,frameon=False)
+legend(loc='upper left',fontsize=26,frameon=False)
 ax=gca()
 ax.spines['top'].set_linewidth(5)
 ax.spines['bottom'].set_linewidth(5)
